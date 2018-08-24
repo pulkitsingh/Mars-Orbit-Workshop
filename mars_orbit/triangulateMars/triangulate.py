@@ -35,6 +35,29 @@ def loadData():
 
 #----------------------------------------------------------------------------#
 
+def plotEarthLocations(earthLocations):
+
+	# creating a plot
+	fig, ax = plt.subplots()
+
+	# plotting the sun at the origin
+	ax.plot(0, 0, 'yo', markersize=10, label="Sun")
+
+	# plotting different locations of Earth
+	xEarth, yEarth = [], []
+	for location in earthLocations:
+		xEarth.append(location[0])
+		yEarth.append(location[1])
+
+	ax.plot(xEarth, yEarth, 'bo', markersize=5, label="Earth Locations")
+
+	ax.legend(fontsize='x-small')
+	plt.show()
+
+
+#----------------------------------------------------------------------------#
+
+
 def findMars(earthLocation1, marsAngle1, earthLocation2, marsAngle2):
 
 	x1, y1 = earthLocation1       # coordinates of first earth location
@@ -88,9 +111,13 @@ def plotTriangulations(marsLocations, radius):
 		yMars.append(my)
 	ax.plot(xMars, yMars, 'ro', markersize=5, label="Mars's Projection")
 
-	# plotting best fit circle
-	fit = plt.Circle((0,0), radius, color='g', fill=False)
-	ax.add_artist(fit)
+	if radius is not None:	
+		# plotting best fit circle
+		fit = plt.Circle((0,0), radius, color='g', fill=False,
+			label="Best-fit circle")
+		ax.add_artist(fit)
+		s = "Best-fit radius = " + str(round(radius, 4))
+		ax.text(0.75, -2, s, fontsize=7)
 
 	# setting dimensions of the plot
 	lim = 2.2
@@ -98,8 +125,7 @@ def plotTriangulations(marsLocations, radius):
 	ax.set_ylim(-lim, lim)
 	ax.set_aspect('equal')
 	ax.legend(fontsize='x-small')
-	s = "Best-fit radius = " + str(round(radius, 4))
-	ax.text(0.75, -2, s, fontsize=7)
+	
 
 	# function to show the plot
 	plt.show()

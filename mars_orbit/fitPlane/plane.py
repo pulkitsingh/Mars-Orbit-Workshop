@@ -120,17 +120,23 @@ def plotPlane(coordinates, planeParams):
 	ax = Axes3D(fig)
 
 	# plotting Mars's locations on the celestial sphere
-	ax.scatter(xMars, yMars, zMars)
+	ax.scatter(xMars, yMars, zMars, 'r')
+	ax.scatter(0.0, 0.0, 0.0, 'y')
 
 	# plotting mars's best-fit orbital plane
 	point = np.array([0.0, 0.0, 0.0])
 	normal = np.array([a, b, 1.0])
 	d = -point.dot(normal)
 	xx, yy = np.meshgrid(range(-2, 3), range(-2, 3))
-	z = (-normal[0] * xx - normal[1] * yy - d) * 1. /normal[2]
-	ax.plot_surface(xx, yy, z, alpha=0.2)
+	zm = (-normal[0] * xx - normal[1] * yy - d) * 1. /normal[2]
+	ax.plot_surface(xx, yy, zm, alpha=0.2, color='b',
+		label="Mars Orbital Plane")
 
-	plt.show()
+	# plotting the ecliptic plane
+	ze = yy * 0.0
+	ax.plot_surface(xx, yy, ze, alpha=0.2, color='y', label="Ecliptic Plane")
+
+	plt.savefig("planePlot.png")
 
 #----------------------------------------------------------------------------#
 

@@ -1,4 +1,10 @@
-# Desc
+# This module lifts the triangulated locations of Mars onto the estimated
+# Orbital Plane, and then fits both a circle and an ellipse for the Mars
+# orbit in order to compare the two. 
+
+# Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
+# Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,
+# Indian Institute of Science, Bangalore, India.
 
 #----------------------------------------------------------------------------#
 
@@ -101,7 +107,8 @@ def plotBoth(coordinates, circleRadius, ellipseParameters):
 	ax.plot(xf, yf, "go", label="Ellipse Focus #2")
 
 	# adding best fit circle
-	fit_c = plt.Circle((0,0), circleRadius, color='c', fill=False, label="Best-fit Circle")
+	fit_c = plt.Circle((0,0), circleRadius, color='c', fill=False, 
+		label="Best-fit Circle")
 	ax.add_artist(fit_c)
 
 	# adding best fit ellipse

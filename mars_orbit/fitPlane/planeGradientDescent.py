@@ -1,11 +1,14 @@
-# E0 259: Data Analytics. Module 1: Mars Orbit.
-# Gradient Descent Module to be used for Question 2.
-# Pulkit Singh, July 19 2018
+# This module runs gradient descent on the locations of Mars on the Celestial
+# Sphere, in order to find the best-fit Mars orbital Plane.
+
+# Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
+# Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,
+# Indian Institute of Science, Bangalore, India.
 
 import numpy as np
 import math
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
 
 # Takes x-y-z coordinate matrix and guesses for slope parameters a, b.
 # Computes squared euclidian distance from points (x, y, z) to plane
@@ -26,7 +29,7 @@ def evaluateDistance(coordinates, a, b):
 	squareDist = float(sum(distance ** 2))
 	return squareDist
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
 
 # Takes x-y-z coordinate matrix and guesses for slope parameters a, b.
 # Computes gradient vector of squaredDistance function(as defined above)
@@ -56,4 +59,4 @@ def computeGradient(coordinates, a, b):
 	gradient = [float(sum(partialA)), float(sum(partialB))]
 	return gradient
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#

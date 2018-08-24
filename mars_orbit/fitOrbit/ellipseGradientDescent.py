@@ -1,35 +1,41 @@
-# E0 259: Data Analytics. Module 1: Mars Orbit.
-# Ellipse Descent Module to be used for Question 3.
-# Pulkit Singh, July 23 2018
+# This module runs gradient descent on the locations of Mars on it's orbital
+# plane in order to find the best-fit elliptical orbit for Mars.
+
+# Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
+# Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,
+# Indian Institute of Science, Bangalore, India.
+
+#----------------------------------------------------------------------------#
 
 import numpy as np
 import math
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
 
 # Takes x-y coordinate matrix of different Mars locations, x-y coordinates of
-# the second focus and the length of the major axis as input, and computes the
-# cost by calculating:
+# the second focus and the length of the major axis as input, and computes 
+# the cost by calculating:
 # (sum of distances from focii - length of major axis)^2
 def evaluateDistance(xMars, yMars, xFocus, yFocus, majorAxis):
 	dist = []
 
-	# calculating (distance to origin + distance to focus2 - major axis length)^2
-	# for each (x, y) pair
+	# calculating (distance to origin + distance to focus2 
+	# - major axis length)^2 for each (x, y) pair
 	for i in range(len(xMars)):
 		distOrigin = math.sqrt(math.pow(xMars[i], 2) + math.pow(yMars[i], 2))
-		distFocus = math.sqrt(math.pow((xMars[i] - xFocus), 2) + math.pow((yMars[i] - yFocus), 2))
+		distFocus = math.sqrt(math.pow((xMars[i] - xFocus), 2) 
+			+ math.pow((yMars[i] - yFocus), 2))
 		dist.append(math.pow((distOrigin + distFocus - majorAxis), 2))
 
 	# adding up all the square distances
 	squareDist = sum(dist)
 	return squareDist
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
 
 # Takes x-y coordinate matrix of different Mars locations, x-y coordinates of
-# the second focus and the length of the major axis as input, and computes the
-# gradient vector ([df/d(xFocus), df/d(yFocus), df/d(majorAxis)])
+# the second focus and the length of the major axis as input, and computes 
+# the gradient vector ([df/d(xFocus), df/d(yFocus), df/d(majorAxis)])
 def computeGradient(xMars, yMars, xFocus, yFocus, majorAxis):
 
 	dxFocus = []
@@ -43,7 +49,8 @@ def computeGradient(xMars, yMars, xFocus, yFocus, majorAxis):
 	# computing partial derivatives for each set of coordinates
 	for i in range(len(xMars)):
 		distOrigin = math.sqrt(math.pow(xMars[i], 2) + math.pow(yMars[i], 2))
-		distFocus = math.sqrt(math.pow((xMars[i] - xFocus), 2) + math.pow((yMars[i] - yFocus), 2))
+		distFocus = math.sqrt(math.pow((xMars[i] - xFocus), 2) 
+			+ math.pow((yMars[i] - yFocus), 2))
 		dist = distOrigin + distFocus - majorAxis
 
 		xDiff = xMars[i] - xFocus
@@ -54,15 +61,17 @@ def computeGradient(xMars, yMars, xFocus, yFocus, majorAxis):
 		dmajorAxis.append(-2 * dist)
 
 	# returning gradient vector
-	gradient = [float(sum(dxFocus)), float(sum(dyFocus)), float(sum(dmajorAxis))]
+	gradient = [float(sum(dxFocus)), 
+				float(sum(dyFocus)), 
+				float(sum(dmajorAxis))]
 	return gradient
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#
 
 # Takes x-y coordinate matrix of different Mars locations, x-y coordinates of
-# the second focus and the length of the major axis as input, and runs gradient
-# descent to find the best fit ellipse. Returns the x-y coordinates of the found
-# focus, and the length of the major axis of the ellipse.
+# the second focus and the length of the major axis as input, and runs 
+# gradient descent to find the best fit ellipse. Returns the x-y coordinates 
+# of the found focus, and the length of the major axis of the ellipse.
 def findEllipse(xMars, yMars, xf, yf, axis):
 	
 	# initialising alpha as the step value
@@ -90,4 +99,4 @@ def findEllipse(xMars, yMars, xf, yf, axis):
 
 	return xf, yf, axis, cost
 
-#-------------------------------------------------------------------------------#
+#----------------------------------------------------------------------------#

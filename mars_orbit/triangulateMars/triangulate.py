@@ -1,4 +1,8 @@
-# desc
+# This modules triangulates the projections of Mars on the ecliptic plane.
+
+# Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
+# Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,
+# Indian Institute of Science, Bangalore, India.
 
 #----------------------------------------------------------------------------#
 

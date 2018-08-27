@@ -14,6 +14,17 @@ import matplotlib.pyplot as plt
 #----------------------------------------------------------------------------#
 
 def loadData():
+	""" Loads data contained in triangulation.csv, returns lists of Earth
+	    locations and Mars angles.
+
+	Parameters:
+		none
+
+	Returns:
+		earthLocations (float list): list of x-y coordinates of Earth
+		marsAngles (float list): list of angles to Mars from Earth locations
+
+	"""
 	tri = "triangulation.csv"
 	fields = []                # text headings in csv file
 	earthLocations = []        # Positions of Earth - [x, y] format (AU)
@@ -40,6 +51,12 @@ def loadData():
 #----------------------------------------------------------------------------#
 
 def plotEarthLocations(earthLocations):
+	""" Plots loaded Earth locations.
+
+	Parameters:
+		earthLocations (float list): list of x-y coordinates of Earth
+
+	"""
 
 	# creating a plot
 	fig, ax = plt.subplots()
@@ -63,6 +80,18 @@ def plotEarthLocations(earthLocations):
 
 
 def findMars(earthLocation1, marsAngle1, earthLocation2, marsAngle2):
+	""" Triangulates location of Mars from two earthLocations and marsAngles
+
+	Parameters:
+		earthLocation1 (float): first paired location
+		marsAngle1 (float)    : first paried angle
+		earthLocation2 (float): second paired location
+		marsAngle2 (float)    : second paried angle
+
+	Returns:
+		marsLocation (float) : x-y coordinates of triangulated Mars location
+
+	"""
 
 	x1, y1 = earthLocation1       # coordinates of first earth location
 	ma1 = marsAngle1			  # corresponding first angle to mars
@@ -84,6 +113,16 @@ def findMars(earthLocation1, marsAngle1, earthLocation2, marsAngle2):
 #----------------------------------------------------------------------------#
 
 def computeRadius(marsLocations):
+	""" Computes the radius of the best-fit circle to triangulated Mars
+		locations.
+
+	Parameters:
+		marsLocations (float list): list of x-y coordinates of Mars
+
+	Returns:
+		triangulatedRadius (float): radius of best-fit circle (in AU)
+
+	"""
 
 	# for each mars location, finding distances from origin 
 	rMars = []	
@@ -100,6 +139,13 @@ def computeRadius(marsLocations):
 #----------------------------------------------------------------------------#
 
 def plotTriangulations(marsLocations, radius):
+	""" Plots triangulated Mars locations and best-fit circle.
+
+	Parameters:
+		marsLocations (float list): list of x-y coordinates of Mars
+		triangulatedRadius (float): radius of best-fit circle (in AU)
+
+	"""
 
 	# creating a plot
 	fig, ax = plt.subplots()

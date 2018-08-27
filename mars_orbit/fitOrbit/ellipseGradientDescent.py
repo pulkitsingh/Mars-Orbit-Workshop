@@ -12,11 +12,28 @@ import math
 
 #----------------------------------------------------------------------------#
 
-# Takes x-y coordinate matrix of different Mars locations, x-y coordinates of
-# the second focus and the length of the major axis as input, and computes 
-# the cost by calculating:
-# (sum of distances from focii - length of major axis)^2
 def evaluateDistance(xMars, yMars, xFocus, yFocus, majorAxis):
+	""" Computes the cost of fitting an ellipse with one focus at the sun,
+		and the other at [xFocus, yFocus], given the locations of Mars and
+		the length of the major axis.
+
+		Cost is caculated using the following formula:
+		(sum of distances from focii - length of major axis)^2
+
+	Parameters:
+		xMars  (float): list of x-coordinates of Mars locations
+		yMars  (float): list of y-coordinates of Mars locations
+		xFocus (float): x-coordinate of second focus
+		yFocus (float): y-coordinate of second focus
+		majorAxis (float): length of the major axis
+
+	Returns:
+		squareDist (float): cost of fitting the ellipse (sum of square
+							distances)
+
+	"""
+
+	# Finding the distance of each point from the origin
 	dist = []
 
 	# calculating (distance to origin + distance to focus2 
@@ -33,10 +50,23 @@ def evaluateDistance(xMars, yMars, xFocus, yFocus, majorAxis):
 
 #----------------------------------------------------------------------------#
 
-# Takes x-y coordinate matrix of different Mars locations, x-y coordinates of
-# the second focus and the length of the major axis as input, and computes 
-# the gradient vector ([df/d(xFocus), df/d(yFocus), df/d(majorAxis)])
 def computeGradient(xMars, yMars, xFocus, yFocus, majorAxis):
+	""" Computes the gradient vector with respect to the x-y coordinates of
+		the second focus andthe length of the major axis.
+
+		gradient vector = [df/d(xFocus), df/d(yFocus), df/d(majorAxis)]
+
+	Parameters:
+		xMars  (float): list of x-coordinates of Mars locations
+		yMars  (float): list of y-coordinates of Mars locations
+		xFocus (float): x-coordinate of second focus
+		yFocus (float): y-coordinate of second focus
+		majorAxis (float): length of the major axis
+
+	Returns:
+		gradient (float list): list of required gradients
+
+	"""
 
 	dxFocus = []
 	dyFocus = []
@@ -73,6 +103,26 @@ def computeGradient(xMars, yMars, xFocus, yFocus, majorAxis):
 # gradient descent to find the best fit ellipse. Returns the x-y coordinates 
 # of the found focus, and the length of the major axis of the ellipse.
 def findEllipse(xMars, yMars, xf, yf, axis):
+	""" Finds the best-fit ellipse for the Mars Orbit using gradient 
+		descent. Returns the x-y coordinates of the found focus and the
+		length of the major axis.
+
+	Parameters:
+		xMars  (float): list of x-coordinates of Mars locations
+		yMars  (float): list of y-coordinates of Mars locations
+		xFocus (float): x-coordinate of second focus
+		yFocus (float): y-coordinate of second focus
+		majorAxis (float): length of the major axis
+
+	Returns:
+		xf (float): x-coordinate of the found focus
+		yf (float): y-coordinate of the found focus
+		axis (float): length of the major axis
+		cost (float list): list of costs in each gradient descent	
+							iteration.
+
+	"""
+
 	
 	# initialising alpha as the step value
 	alpha = 0.001

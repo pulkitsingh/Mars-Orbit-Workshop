@@ -19,6 +19,17 @@ import planeGradientDescent
 #----------------------------------------------------------------------------#
 
 def loadData():
+	""" Loads data contained in opposition.csv, returns lists of heliocentric
+		Mars longitudes and geocentric Mars latitudes.
+
+	Parameters:
+		none
+
+	Returns:
+		helioLong (float list): list of heliocentric Mars longitudes
+		geoLat (float list): list of geocentric Mars latitudes
+
+	"""
 	opp = "opposition.csv"
 	fields = []        # text headings in csv file
 	helioLong = []     # heliocentric longitude of Mars (in radians)
@@ -44,6 +55,16 @@ def loadData():
 #----------------------------------------------------------------------------#
 
 def findHelioLat(radius, geoLat):
+	""" Finds heliocentric Mars latitudes from geocentric Mars latitudes.
+
+	Parameters:
+		radius (float): radius of best-fit circle to Mars triangulations
+		geoLat (float list): list of geocentric Mars latitudes
+
+	Returns:
+		helioLat (float list): list of heliocentric Mars latitudes
+
+	"""
 
 	helioLat = []
 	scale = (radius - 1)/radius
@@ -55,6 +76,18 @@ def findHelioLat(radius, geoLat):
 #----------------------------------------------------------------------------#
 
 def findCoordinates(helioLong, helioLat):
+	""" Finds coordinates of Mars on the Celestial Sphere from heliocentric
+		latitudes and longitudes.
+
+	Parameters:
+		helioLong (float list): list of heliocentric Mars longitudes
+		helioLat  (float list): list of heliocentric Mars latitudes
+		
+	Returns:
+		coordinates (float list): list of x-y-z coordinates of Mars on the
+								  celestial sphere
+
+	"""
 	xMars = []
 	yMars = []
 	zMars = []
@@ -78,43 +111,34 @@ def findCoordinates(helioLong, helioLat):
 #----------------------------------------------------------------------------#
 
 def fitPlane(coordinates):
+	""" Fits a plane to the coordinates of Mars on the celestial sphere.
 
-	# creating coordinate matrix: [x, y, z]
-	coordinateMatrix = np.array(coordinates).T
-
-	# initalizing guesses for plane parameters a and b to be 0.0
-	a, b = 0.0, 0.0
-
-	# initialising alpha as the step value
-	alpha = 0.0001
-
-	# initialising array to keep track of cost values in gradient descent
-	cost = []
-
-	# running gradient descent
-	for i in range (10000):
+	Parameters:
+		coordinates (float list): list of x-y-z coordinates of Mars on the
+					celestial sphere.
 		
-		# finding cost for given parameter values a & b
-		squareDist = planeGradientDescent.evaluateDistance(coordinateMatrix, a, b)
+	Returns:
+		planeParameters (float list): coefficients (a,b) of x and y for a 
+					plane with equation ax + by + z = 0
 
-		# adding current cost to list of previous costs
-		cost.append(squareDist)
-		
-		# finding gradient with parameter values a & b
-		delta = planeGradientDescent.computeGradient(coordinateMatrix, a, b)
-		
-		# updating parameter values
-		a = a - (alpha * delta[0])
-		b = b - (alpha * delta[1])
-
-	# Final parameters of the plane
-	planeParams = [a, b]
-
-	return planeParams
+	"""
+	planeParameters = planeGradientDescent.findPlane(coordinates)
+	return planeParameters
 
 #----------------------------------------------------------------------------#
 
 def plotPlane(coordinates, planeParams):
+	""" Plots coordinates of Mars on the celestial sphere and the best-fit
+		plane to these coordinates.
+
+	Parameters:
+		coordinates (float list): list of x-y-z coordinates of Mars on the
+					celestial sphere.
+		planeParameters (float list): coefficients (a,b) of x and y for a 
+					plane with equation ax + by + z = 0
+
+	"""
+
 
 	# unpacking necessary parameters
 	a, b = planeParams
@@ -141,11 +165,23 @@ def plotPlane(coordinates, planeParams):
 	ze = yy * 0.0
 	ax.plot_surface(xx, yy, ze, alpha=0.2, color='y', label="Ecliptic Plane")
 
-	plt.savefig("planePlot.png")
+	plt.show()
 
 #----------------------------------------------------------------------------#
 
 def findInclination(planeParams):
+	""" Calculate angle between Ecliptic plane and best-fit Mars orbital 
+		plane.
+
+	Parameters:
+		planeParameters (float list): coefficients (a,b) of x and y for a 
+					plane with equation ax + by + z = 0
+
+	Returns:
+		Angle of Inclination of Mars Orbital plane
+
+	"""
+
 	a, b = planeParams
 	angle = math.acos(1/(math.sqrt(math.pow(a, 2) + math.pow(b, 2) + 1.0)))
 	return math.degrees(angle)

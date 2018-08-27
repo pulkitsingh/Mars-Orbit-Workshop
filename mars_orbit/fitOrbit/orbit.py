@@ -21,6 +21,19 @@ import ellipseGradientDescent
 #----------------------------------------------------------------------------#
 
 def liftCoordinates(planeParams, marsTriLocations):
+	""" Computes the coordinates of Mars from the projections of Mars on
+		the ecliptic plane and the best-fit Mars orbital plane.
+
+	Parameters:
+		planeParams (float list): parameters of Mars orbital plane
+		marsTriLocations (float list): list of coordinates for the 
+					projections of Mars on the Ecliptic plane.
+
+	Returns:
+		liftedLocations (float list): x-y-z coordinates of Mars on its 
+					orbital plane
+
+	"""
 
 	a, b = planeParams
 
@@ -38,11 +51,22 @@ def liftCoordinates(planeParams, marsTriLocations):
 
 #----------------------------------------------------------------------------#
 
-def fitCircle(coordinates):
+def fitCircle(liftedLocations):
+	""" Fits a circle for the orbit of Mars.
+
+	Parameters:
+		liftedLocations (float list): x-y-z coordinates of Mars on its 
+					orbital plane
+
+	Returns:
+		r (float): radius of best-fit circle
+		loss (float): sum of losses in fitting the circle
+
+	"""
 
 	# Finding the distance of each point from the origin
 	rMars = []
-	for location in coordinates:
+	for location in liftedLocations:
 		xMars, yMars, zMars = location
 		sqDist = math.pow(xMars, 2) + math.pow(yMars, 2) + math.pow(zMars, 2)
 		rMars.append(math.sqrt(sqDist))
@@ -59,9 +83,22 @@ def fitCircle(coordinates):
 
 #----------------------------------------------------------------------------#
 
-def fitEllipse(coordinates):
+def fitEllipse(liftedLocations):
+	""" Fits an ellipse for the orbit of Mars.
+
+	Parameters:
+		liftedLocations (float list): x-y-z coordinates of Mars on its 
+					orbital plane
+
+	Returns:
+		ellipseParameters (float list): x-y coordinates of second focus,
+			length of the major axis
+		loss (float): sum of losses in fitting the ellipse
+
+	"""
+
 	xMars, yMars, zMars = [], [], []
-	for location in coordinates:
+	for location in liftedLocations:
 		x, y, z = location
 		xMars.append(x); yMars.append(y); zMars.append(z)
 
@@ -72,15 +109,32 @@ def fitEllipse(coordinates):
 	xf, yf, axis, cost = ellipseGradientDescent.findEllipse(xMars, yMars, 
 		xf1, yf1, axis1)
 
-	ellipseParameters = [xf, yf, axis]
-	return ellipseParameters, cost[-1]
+	ellipseParameters = [xf, yf, axis]  # making parameter list
+	loss = cost[-1]                     # storing only the final cost
+	return ellipseParameters, loss
 
 #----------------------------------------------------------------------------#
 
-def plotBoth(coordinates, circleRadius, ellipseParameters):
+def plotBoth(liftedLocations, circleRadius, ellipseParameters):
+	""" Plots Mars locations and both the best-fit circle and the best-fit
+		ellipse in order to compare the fits
+
+	Parameters:
+		liftedLocations (float list): x-y-z coordinates of Mars on its 
+					orbital plane
+		circleRadius (float): radius of the best-fit circle
+		ellipseParameters (float list): parameters of the best-fit ellipse
+
+	Returns:
+		r (float): radius of best-fit circle
+		loss (float): sum of losses in fitting the circle
+
+	"""
+
+	# Finding the distance of each point from the origin
 
 	xMars, yMars, zMars = [], [], []
-	for location in coordinates:
+	for location in liftedLocations:
 		x, y, z = location
 		xMars.append(x); yMars.append(y); zMars.append(z)
 

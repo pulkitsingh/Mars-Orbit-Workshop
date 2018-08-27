@@ -1,3 +1,3 @@
 # Testing
 
-![Header Image](images/intp.jpg)
+![Header Image](./images/into.jpg)

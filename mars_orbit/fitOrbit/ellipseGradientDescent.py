@@ -1,5 +1,6 @@
-# This module runs gradient descent on the locations of Mars on it's orbital
-# plane in order to find the best-fit elliptical orbit for Mars.
+""" This module runs gradient descent on the locations of Mars on it's 
+	orbitalplane in order to find the best-fit elliptical orbit for Mars.
+"""
 
 # Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
 # Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,

@@ -1,12 +1,12 @@
-# This module runs gradient descent on the locations of Mars on the Celestial
-# Sphere, in order to find the best-fit Mars orbital Plane.
+""" This module runs gradient descent on the locations of Mars on the 
+	celestial Sphere, in order to find the best-fit Mars orbital Plane.
+"""
 
 # Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
 # Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,
+# Indian Institute of Science, Bangalore, India.
 
 #----------------------------------------------------------------------------#
-
-# Indian Institute of Science, Bangalore, India.
 
 import numpy as np
 import math

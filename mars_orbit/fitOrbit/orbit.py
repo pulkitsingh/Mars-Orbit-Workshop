@@ -1,6 +1,7 @@
-# This module lifts the triangulated locations of Mars onto the estimated
-# Orbital Plane, and then fits both a circle and an ellipse for the Mars
-# orbit in order to compare the two. 
+"""	This module lifts the triangulated locations of Mars onto the estimated
+	Orbital Plane, and then fits both a circle and an ellipse for the Mars
+	orbit in order to compare the two. 
+"""
 
 # Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
 # Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,

@@ -1,5 +1,6 @@
-# This module locates Mars on the celestial sphere and fits a plane to these
-# positions using gradient descent.
+""" This module locates Mars on the celestial sphere and fits a plane to 
+	these positions using gradient descent.
+"""
 
 # Developed by Pulkit Singh, Niheshkumar Rathod & Rajesh Sundaresan
 # Copyright lies with the Robert Bosch Center for Cyber-Physical Systems,

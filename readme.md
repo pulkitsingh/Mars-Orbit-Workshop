@@ -11,9 +11,18 @@ There are two main parts of the project:
 - The Jupyter notebook designed to guide the students through hands-on programming activities.
 - The Python package that modularises all the need computational and plotting requirement for the workshop.
 
+## Outline of Material
+
+This project contains:
+- Mars Orbit Workshop.ipynb : Jupyter notebook for programming activity
+- mars_orbit : python package for computational functionality
+- triangulation.csv, opposition.csv : data files for calculations
+- Mars Orbit Workshop Solutions.ipynb : Solved Jupyter noteboook
+
+
 ## Using the Material
 
-A quick fork of the repository will give you access to the Jupyter notebook and python package. Launch the Jupyter notebook with the program of your choice, and you should be guided into the programming activities. 
+A quick fork of the repository will give you access to the Jupyter notebook and python package. Launch the Jupyter notebook with the program of your choice, and you will be guided into the programming activity. 
 
 Please contact Pulkit Singh (pulkit@princeton.edu) or Professor Rajesh Sundaresan (rajeshs@iisc.ac.in) if you intend to use this material to conduct a workshop or in any non-personal use.
 

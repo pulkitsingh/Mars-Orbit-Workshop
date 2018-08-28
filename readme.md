@@ -15,9 +15,9 @@ There are two main parts of the project:
 
 This project contains:
 - Mars Orbit Workshop.ipynb : Jupyter notebook for programming activity
-- mars_orbit : python package for computational functionality
+- mars_orbit : Python package for computational functionality
 - triangulation.csv, opposition.csv : data files for calculations
-- Mars Orbit Workshop Solutions.ipynb : Solved Jupyter noteboook
+- Mars Orbit Workshop Solutions.ipynb : solved Jupyter noteboook
 
 
 ## Using the Material
